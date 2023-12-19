@@ -27,10 +27,10 @@ def create_total_sum_df(index, total_sum):
 def merge_data(original_df, total_sum_df):
     return pd.merge(original_df, total_sum_df, on='Филиал', how='left')
 
-def update_excel_sheet(excel_file_save, sheet_name, data):
+def update_excel_sheet(excel_file_save, sheet_name, data, start_row):
     wb = openpyxl.load_workbook(excel_file_save)
     ws = wb[sheet_name]
-    for r_idx, row in enumerate(dataframe_to_rows(data, index=False, header=True), 1):
+    for r_idx, row in enumerate(dataframe_to_rows(data, index=False, header=True), start_row):
         for c_idx, value in enumerate(row, 1):
             ws.cell(row=r_idx, column=c_idx, value=value)
     wb.save(excel_file_save)
